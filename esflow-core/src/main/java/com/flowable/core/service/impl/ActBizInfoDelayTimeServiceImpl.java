@@ -13,6 +13,7 @@ import com.flowable.core.dao.ActBizInfoDelayTimeDao;
 import com.flowable.core.service.ActBizInfoDelayTimeService;
 
 @Service
+@Transactional
 public class ActBizInfoDelayTimeServiceImpl extends BaseServiceImpl<ActBizInfoDelayTime> implements ActBizInfoDelayTimeService{
 
 	@Autowired

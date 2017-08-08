@@ -29,11 +29,8 @@ public interface RoleDao extends IBaseDao<Map<String,Object>>{
 
 	public List<Map<String, String>> findUsersByFullname(String userName);
 
-	public Map<String, String> getThreeLevalManager(String username);
 
 	public Map<String, String> findUserByUserName(String userName);
-
-	public Map<String, String> findThreeLevalManager(Map<String, String> params);
 
 	/**
 	 * 获取部门信息
@@ -41,14 +38,6 @@ public interface RoleDao extends IBaseDao<Map<String,Object>>{
 	 * @return
 	 */
 	public Map<String, String> getDeptmet(String deptmentId);
-
-	/**
-	 * 根据params获取人员
-	 * @param page
-	 * @param params
-	 * @return
-	 */
-	public void loadUserByParams( PageHelper<Map<String, Object>> page, Map<String, String> params);
 
 	public Set<String> getUserRolesByUserName(String username);
 

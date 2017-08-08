@@ -187,39 +187,6 @@ public class RoleDaoImpl extends BaseDaoImpl<Map<String,Object>> implements Role
 	}
 	
 	@Override
-	public Map<String,String> getThreeLevalManager(String username){
-		
-		StringBuilder sql = new StringBuilder(" SELECT USERNAME,FULLNAME FROM COMMON.SYS_USER U WHERE ");
-		sql.append(" U.STRUCT_ID=(SELECT STRUCT_ID FROM COMMON.SYS_USER WHERE USERNAME = ? )");
-		List<Map<String,String>> list = this.findBySql(sql.toString(),new Object[]{username}, Map.class);
-		if(list != null && !list.isEmpty())
-			return list.get(0);
-		return new HashMap<String, String>();
-	}
-	
-	@Override
-	public Map<String,String> findThreeLevalManager(Map<String,String> params){
-		
-		List<Object> args = new ArrayList<Object>();
-		StringBuilder sql = new StringBuilder(" SELECT A.USERNAME AS USERNAME,U.MOBILE AS MOBILE,U.NAME_CN AS FULLNAME,U.USER_CODE, ");
-		sql.append(" U.EMAIL AS EMAIL FROM COMMON.SYS_BS_USER U JOIN COMMON.SYS_BS_ACCOUNT A ON U.ACCOUNT_ID=A.ID  ");
-		sql.append(" JOIN COMMON.SYS_BS_DEPARTMENT S ON U.DEPARTMENT_ID = S.ID WHERE (U.USER_CODE  like '3%' or U.USER_CODE like '2%') ");
-		if(StringUtils.isNotBlank(params.get("deptmentId"))){
-			sql.append(" AND U.DEPARTMENT_ID = ?");
-			args.add(params.get("deptmentId"));
-		}
-		if(StringUtils.isNotBlank(params.get("parentId"))){
-			sql.append(" AND S.PARENT_ID = ?");
-			args.add(params.get("parentId"));
-		}
-		sql.append(" order by U.USER_CODE desc ");
-		List<Map<String,String>> list = this.findBySql(sql.toString(),args.toArray(), Map.class);
-		if(list != null && !list.isEmpty())
-			return list.get(0);
-		return new HashMap<String, String>();
-	}
-	
-	@Override
 	public Map<String,String> getDeptmet(String deptmentId){
 		
 		String sql = " SELECT NAME,ID ,PARENT_ID AS PARENTID FROM COMMON.SYS_BS_DEPARTMENT WHERE ID = ? ";
@@ -229,36 +196,6 @@ public class RoleDaoImpl extends BaseDaoImpl<Map<String,Object>> implements Role
 		return new HashMap<String, String>();
 	}
 
-	@Override
-	public void loadUserByParams(
-			PageHelper<Map<String, Object>> page, Map<String, String> params) {
-		StringBuffer sqlbuff = new StringBuffer(" SELECT U.ID,U.EMAIL,U.MOBILE,U.NAME_CN,A.USERNAME FROM COMMON.SYS_BS_USER U  ");
-		sqlbuff.append(" INNER JOIN COMMON.SYS_BS_ACCOUNT A ON A.ID = U.ACCOUNT_ID ");
-		List<Object> parameterList = new ArrayList<Object>();
-		if(StringUtils.isNotBlank(params.get("departmentName"))){
-			sqlbuff.append(" INNER JOIN ( SELECT * FROM COMMON.SYS_BS_DEPARTMENT WHERE NAME_CN NOT LIKE '%分公司%' AND NAME = ? ");
-			sqlbuff.append("UNION SELECT * FROM COMMON.SYS_BS_DEPARTMENT WHERE PARENT_ID IN (SELECT ID FROM COMMON.SYS_BS_DEPARTMENT WHERE NAME_CN NOT LIKE '%分公司%' AND NAME = ?)) D ON D.ID = U.DEPARTMENT_ID ");
-			parameterList.add(params.get("departmentName"));
-			parameterList.add(params.get("departmentName"));
-		}
-		if(StringUtils.isNotBlank(params.get("departmentId"))){
-			sqlbuff.append(" INNER JOIN ( SELECT * FROM COMMON.SYS_BS_DEPARTMENT WHERE ID = ? ");
-			sqlbuff.append("UNION SELECT * FROM COMMON.SYS_BS_DEPARTMENT WHERE PARENT_ID IN (SELECT ID FROM COMMON.SYS_BS_DEPARTMENT WHERE ID = ?)) D ON D.ID = U.DEPARTMENT_ID ");
-			parameterList.add(params.get("departmentId"));
-			parameterList.add(params.get("departmentId"));
-		}
-		if(StringUtils.isNotBlank(params.get("roleName"))){
-			sqlbuff.append(" INNER JOIN COMMON.SYS_AU_ROLE_ACCOUNT_R RA ON RA.ACCOUNT_ID = U.ACCOUNT_ID");
-			sqlbuff.append(" INNER JOIN COMMON.SYS_AU_ROLE R ON RA.ROLE_ID = R.ID AND R.NAME_CN = ? ");
-			parameterList.add(params.get("roleName"));
-		}
-		if(StringUtils.isNotBlank(params.get("systemName"))){
-			sqlbuff.append(" INNER JOIN ESFLOW.BIZ_SYSTEM_USER_CONF S ON S.USER_NAME = A.USERNAME AND S.USER_TYPE='needInterfaceMan' AND S.SYSTEM_NAME = ?");
-			parameterList.add(params.get("systemName"));
-		}
-		this.findBySql(page, sqlbuff.toString(), parameterList.toArray(),Map.class);
-	}
-	
 	@Override
 	public Set<String> getUserRolesByUserName(String username){
 		
