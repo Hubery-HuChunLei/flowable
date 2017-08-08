@@ -43,8 +43,8 @@ public class ProcessModelMgrController{
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = "processValList")
 	@ResponseBody
+	@RequestMapping(value = "processValList")
 	public DataGrid processValList(@RequestParam Map<String, Object> params,PageHelper<TaskVariable> page) {
 	
 		DataGrid grid = new DataGrid();
@@ -79,8 +79,8 @@ public class ProcessModelMgrController{
 	 * @param params
 	 * @return
 	 */
-	@RequestMapping(value = "getProcessValById")
 	@ResponseBody
+	@RequestMapping(value = "getProcessValById")
 	public Json getProcessValById(@RequestParam Map<String, Object> params) {
 		
 		logger.info("根据全局流程变量ID得到变量详情---getProcessValById");
@@ -111,8 +111,8 @@ public class ProcessModelMgrController{
 	 * @param params
 	 * @return
 	 */
-	@RequestMapping(value = "deleteProcessValById")
 	@ResponseBody
+	@RequestMapping(value = "deleteProcessValById")
 	public Json deleteProcessValById(HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> params) {
 		logger.info("根据全局流程变量IDs删除变量详情---deleteProcessValById");
 		String[] valIds = ((String) params.get("valIds")).split(",");
@@ -138,8 +138,8 @@ public class ProcessModelMgrController{
 	 * 保存或者更新流程全局变量
 	 * @return
 	 */
-	@RequestMapping(value = "saveOrUpdateProcessVal")
 	@ResponseBody
+	@RequestMapping(value = "saveOrUpdateProcessVal")
 	public Json saveOrUpdateProcessVal(HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> reqParams) {
 		logger.info("保存或者更新流程全局变量---saveOrUpdateProcessVal");
 		Json json = new Json();

@@ -131,10 +131,4 @@ public class ActBizConfController{
 		json.setSuccess(true);
 		return json;
 	}
-	
-	@RequestMapping("deleteFile")
-	public void deleteFile(String id){
-		bizFileService.deleteBizFile(new String[]{id});
-	}
-	
 }

@@ -27,35 +27,6 @@ public class BizHandleController{
 	private IBizHandleService bizHandleService;
 	
 	/**
-	 * 人员列表
-	 * @param page
-	 * @param params
-	 * @return
-	 */
-	@RequestMapping(value = "/loadMembers")
-	@ResponseBody
-	public DataGrid loadMembers(PageHelper<Map<String, Object>> page, @RequestParam Map<String,Object> params){
-
-		logger.info("params : " + params);
-		try {
-			String  value = null;
-			for (String key : params.keySet()) {
-				value = URLDecoder.decode((String) params.get(key),"UTF-8");
-				params.put(key, value);
-			}
-		}catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		PageHelper<Map<String, Object>> helper = bizHandleService.loadMembers(page, params);
-		DataGrid grid = new DataGrid();
-		if (helper != null) {
-			grid.setRows(helper.getList());
-			grid.setTotal(helper.getTotal());
-		}
-		return grid;
-	}
-	
-	/**
 	 * 部门列表
 	 * @param params
 	 * @return

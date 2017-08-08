@@ -17,11 +17,6 @@ import java.util.Map;
  * <br>
  * Title: ipman_topic<br>
  * Description: <br>
- * Copyright: eastcom_sw Copyright (C) 2013 <br>
- * 
- * @author <a href="mailto:邮箱">hujian</a><br>
- * @e-mail: hujian@eastcom-sw.com<br>
- * @version 3.0 <br>
  * @creatdate 2013-11-18 下午4:46:39 <br>
  */
 public class SSOUtil {

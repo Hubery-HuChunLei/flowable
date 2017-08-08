@@ -180,11 +180,6 @@ public class ProcessExecuteController {
 				data.put(IProcessExecuteService.systemFormType, pia);
 			}
 		}
-		if(roles != null && roles.contains("工时修改")){
-			data.put("reSetWorkTime", true);
-		}else{
-			data.put("reSetWorkTime", false);
-		}
 		data.put("ProcessValBeanMap", map);
 		result.remove("ProcessValBeanMap");
 		data.put("ProcessTaskValBeans", result.get("ProcessTaskValBeans"));
@@ -193,34 +188,7 @@ public class ProcessExecuteController {
 		result.remove("SYS_BUTTON");
 		data.put("workLoad",result.get("workLoad"));
 		data.put("workBean", result);
-		Date delayTime = new Date();
-		ActBizInfoDelayTime actBizInfoDelayTime = actBizInfoDelayTimeService.findActBizInfoByBizId(id, null);
-		if(actBizInfoDelayTime!=null){
-			delayTime = actBizInfoDelayTime.getDelayTime();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			if(delayTime != null)
-				data.put("delayTime", dateFormat.format(delayTime));
-		}
 		return data;
-	}
-	
-	@ResponseBody
-	@SuppressWarnings("unchecked")
-	@RequestMapping("/resetWorkTime")
-	public Json resetWorkTime(@RequestParam String workTime){
-		
-		Json json = new Json();
-		try {
-			List<Map<String,String>> list = (List<Map<String, String>>) JSONArray.parse(workTime);
-			this.taskInstanceService.reSetWorkTime(list);
-		} catch (Exception e) {
-			json.setMsg("工时修改失败");
-			json.setSuccess(false);
-			return json;
-		}
-		json.setMsg("工时修改成功");
-		json.setSuccess(true);
-		return json;
 	}
 	
 	@RequestMapping(value = "bizInfo")

@@ -58,8 +58,8 @@ public class ActProcessController {
 	/**
 	 * 流程定义列表
 	 */
-	@RequestMapping(value = "list")
 	@ResponseBody
+	@RequestMapping(value = "list")
 	public DataGrid processList(PageHelper<Object[]> page,@RequestParam Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
 		/*
 		 * 保存两个对象，一个是ProcessDefinition（流程定义），一个是Deployment（流程部署）
@@ -103,8 +103,8 @@ public class ActProcessController {
 	/**
 	 * 流程所有任务列表
 	 */
-	@RequestMapping(value = "processTaskList")
 	@ResponseBody
+	@RequestMapping(value = "processTaskList")
 	public DataGrid processTaskList(@RequestParam Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
 		DataGrid grid = new DataGrid();
 		try {
@@ -121,8 +121,8 @@ public class ActProcessController {
 	/**
 	 * 运行中的实例列表
 	 */
-	@RequestMapping(value = "running")
 	@ResponseBody
+	@RequestMapping(value = "running")
 	public DataGrid runningList(PageHelper<ProcessInstance> page,String procInsId, String procDefKey, Model model) {
 		
 		DataGrid grid = new DataGrid();
@@ -244,8 +244,8 @@ public class ActProcessController {
 	 * @throws UnsupportedEncodingException
 	 * @throws XMLStreamException
 	 */
-	@RequestMapping(value = "convert")
 	@ResponseBody
+	@RequestMapping(value = "convert")
 	public Json convertToModel(@RequestParam String processDefinitionId, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, XMLStreamException {
 		Json json = new Json();
 		try {
@@ -264,8 +264,8 @@ public class ActProcessController {
 	/**
 	 * 导出图片文件到硬盘
 	 */
-	@RequestMapping(value = "export/diagrams")
 	@ResponseBody
+	@RequestMapping(value = "export/diagrams")
 	public List<String> exportDiagrams(@Value("#{APP_PROP['activiti.export.diagram.path']}") String exportDir) throws IOException {
 		
 		return actProcessService.exportDiagrams(exportDir);
@@ -277,8 +277,8 @@ public class ActProcessController {
 	 * @param deploymentId
 	 *            流程部署ID
 	 */
-	@RequestMapping(value = "delete")
 	@ResponseBody
+	@RequestMapping(value = "delete")
 	public Json delete(String deploymentId) {
 		Json json = new Json();
 		try {
@@ -301,8 +301,8 @@ public class ActProcessController {
 	 * @param reason
 	 *            删除原因
 	 */
-	@RequestMapping(value = "deleteProcIns")
 	@ResponseBody
+	@RequestMapping(value = "deleteProcIns")
 	public Json deleteProcIns(String procInsId, String reason, RedirectAttributes redirectAttributes) {
 		Json json = new Json();
 		try {

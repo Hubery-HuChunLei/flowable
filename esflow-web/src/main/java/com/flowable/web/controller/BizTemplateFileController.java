@@ -51,8 +51,8 @@ public class BizTemplateFileController {
 		return "process/config/bizTemplateFileList";
 	}
 	
-	@RequestMapping("/list")
 	@ResponseBody
+	@RequestMapping("/list")
 	public Map<String,Object> list(PageHelper<BizTemplateFile> page,BizTemplateFile file){
 		
 		PageHelper<BizTemplateFile> helper = bizTemplateFileService.findTemplateFlies(page,file,true);
@@ -62,8 +62,8 @@ public class BizTemplateFileController {
 		return data;
 	}
 	
-	@RequestMapping("/upload")
 	@ResponseBody
+	@RequestMapping("/upload")
 	public ResponseEntity<String> upload(@RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response){
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -99,8 +99,8 @@ public class BizTemplateFileController {
 		return entity;
 	}
 	
-	@RequestMapping("/downloadTemplate")
 	@ResponseBody
+	@RequestMapping("/downloadTemplate")
 	public void downloadTemplate(@RequestParam Map<String,String> params, HttpServletRequest request, HttpServletResponse response){
 		
 		try {
